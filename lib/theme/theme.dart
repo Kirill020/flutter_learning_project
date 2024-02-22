@@ -20,6 +20,11 @@ final darkTheme = ThemeData(
       iconColor: Colors.white,
     ),
     textTheme: TextTheme(
+        headlineMedium: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+          fontSize: 25,
+        ),
         bodyMedium: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w500,
