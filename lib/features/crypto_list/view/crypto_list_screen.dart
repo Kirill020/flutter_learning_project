@@ -14,7 +14,7 @@ class CryptoListScreen extends StatefulWidget {
 
 class _CryptoListScreenState extends State<CryptoListScreen> {
   final _cryptoListBloc = CryptoListBloc(
-    GetIt.I<CryptoCoinsRepository>(),
+    GetIt.I<AbstractCoinsRepository>(),
   );
 
   @override
