@@ -1,4 +1,4 @@
-import '../features/crypto_list/view/crypto_list_screen.dart';
+import '../features/crypto_list/crypto_list.dart';
 import '../features/single_crypto_coin/single_crypto_coin.dart';
 
 final routes = {

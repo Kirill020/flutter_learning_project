@@ -4,6 +4,8 @@ class CryptoListState {}
 
 class CryptoListInitial extends CryptoListState {}
 
+class CryptoListLoading extends CryptoListState {}
+
 class CryptoListLoaded extends CryptoListState {
   CryptoListLoaded({required this.coinsList});
 
