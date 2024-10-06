@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:crypto_currencies_list/features/crypto_list/Widgets/widgets.dart';
+import 'package:crypto_currencies_list/features/crypto_list/widgets/widgets.dart';
 import 'package:crypto_currencies_list/features/crypto_list/bloc/crypto_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,5 +1,9 @@
+import 'package:crypto_currencies_list/features/single_crypto_coin/bloc/crypto_coin_details_bloc.dart';
 import 'package:crypto_currencies_list/repositories/crypto_coins/crypto_coins.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class CryptoCoinScreen extends StatefulWidget {
   const CryptoCoinScreen({super.key});
@@ -11,6 +15,10 @@ class CryptoCoinScreen extends StatefulWidget {
 class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
   CryptoCoin? coin;
 
+  final _cryptoCoinDetailsBloc = CryptoCoinDetailsBloc(
+    GetIt.I<AbstractCoinsRepository>(),
+  );
+
   @override
   void didChangeDependencies() {
     final args = ModalRoute.of(context)?.settings.arguments;
@@ -18,7 +26,7 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
     assert(args != null && args is CryptoCoin, 'You must provide String args');
 
     coin = args as CryptoCoin;
-    setState(() {});
+    _cryptoCoinDetailsBloc.add(LoadCryptoCoinDetails(coinCode: coin!.name));
     super.didChangeDependencies();
   }
 
@@ -26,12 +34,22 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 34, 34, 34),
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      body: CoinInfoColumn(coin: coin, theme: theme),
-    );
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 34, 34, 34),
+          iconTheme: const IconThemeData(color: Colors.white),
+        ),
+        body: BlocBuilder<CryptoCoinDetailsBloc, CryptoCoinDetailsState>(
+            bloc: _cryptoCoinDetailsBloc,
+            builder: (context, state) {
+              if (state is CryptoCoinDetailsLoaded) {
+                final coinDetails = state.coinDetails;
+                return CoinInfoColumn(coin: coinDetails, theme: theme);
+              }
+              return const Center(
+                  child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+              ));
+            }));
   }
 }
 
@@ -42,7 +60,7 @@ class CoinInfoColumn extends StatelessWidget {
     required this.theme,
   });
 
-  final CryptoCoin? coin;
+  final CryptoCoinDetails? coin;
   final ThemeData theme;
 
   @override
