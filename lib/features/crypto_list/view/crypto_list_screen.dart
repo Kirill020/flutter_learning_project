@@ -76,7 +76,10 @@ class _CryptoListScreenState extends State<CryptoListScreen> {
                   ],
                 ));
               }
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+              ));
             },
           ),
         ));

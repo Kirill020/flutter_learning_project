@@ -27,45 +27,116 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          title: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(coin?.name ?? '...'),
-              const SizedBox(
-                width: 8,
-              ),
-              Image.network(
-                coin!.imageUrl,
-                width: 24,
-                height: 24,
-                fit: BoxFit.contain,
-              ),
-            ],
-          )),
-      body: Center(
+        backgroundColor: const Color.fromARGB(255, 34, 34, 34),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: CoinInfoColumn(coin: coin, theme: theme),
+    );
+  }
+}
+
+class CoinInfoColumn extends StatelessWidget {
+  const CoinInfoColumn({
+    super.key,
+    required this.coin,
+    required this.theme,
+  });
+
+  final CryptoCoin? coin;
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Image.network(
+        coin!.imageUrl,
+        width: 200,
+        height: 200,
+      ),
+      Text('${coin?.name}'),
+      Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Prise in USD: ',
-              style: theme.textTheme.labelMedium,
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  '${coin?.priceInUSD.toStringAsFixed(4)} \$',
+                  style: theme.textTheme.headlineMedium,
+                ),
+              ),
             ),
-            Text('${coin?.priceInUSD.toStringAsFixed(4)} \$'),
-            // Image.network(
-            //   coin!.imageUrl,
-            //   width: 27,
-            //   height: 27,
-            //   fit: BoxFit.contain,
-            // ),
           ],
         ),
       ),
-      // Column(
-      //   children: [
-      //     Text('${coin?.priceInUSD.toStringAsFixed(4)} \$'),
-      //   ],
-      // ),
-    );
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'High 24 Hour',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                        Text(
+                          '${coin!.hight24.toStringAsFixed(4)} \$',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Low 24 Hour',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                        Text(
+                          '${coin!.low24.toStringAsFixed(4)} \$',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ]);
   }
 }

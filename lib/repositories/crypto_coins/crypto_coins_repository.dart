@@ -17,10 +17,14 @@ class CryptoCoinsRepository implements AbstractCoinsRepository {
           (e.value as Map<String, dynamic>)['USD'] as Map<String, dynamic>;
       final price = usdData['PRICE'];
       final imageUrl = usdData['IMAGEURL'];
+      final hight24 = usdData['HIGH24HOUR'];
+      final low24 = usdData['LOW24HOUR'];
       return CryptoCoin(
         name: e.key,
         priceInUSD: price,
         imageUrl: 'https://www.cryptocompare.com/$imageUrl',
+        hight24: hight24,
+        low24: low24,
       );
     }).toList();
     return cryptoCoinsList;
