@@ -7,7 +7,7 @@ final darkTheme = ThemeData(
     elevation: 0.3,
     backgroundColor: Color.fromARGB(255, 34, 34, 34),
     iconTheme: IconThemeData(
-      color: Color.fromARGB(255, 34, 34, 34),
+      color: Colors.white,
     ),
     titleTextStyle: TextStyle(
       color: Colors.white,
