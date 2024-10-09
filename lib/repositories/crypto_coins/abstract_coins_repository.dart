@@ -2,5 +2,5 @@ import 'package:crypto_currencies_list/repositories/crypto_coins/models/models.d
 
 abstract class AbstractCoinsRepository {
   Future<List<CryptoCoin>> getCoinsList();
-  Future<CryptoCoinDetails> getCoinDetails(String coinCode);
+  Future<CryptoCoin> getCoinDetails(String coinCode);
 }

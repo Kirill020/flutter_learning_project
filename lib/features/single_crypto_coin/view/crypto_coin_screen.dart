@@ -42,8 +42,10 @@ class _CryptoCoinScreenState extends State<CryptoCoinScreen> {
             bloc: _cryptoCoinDetailsBloc,
             builder: (context, state) {
               if (state is CryptoCoinDetailsLoaded) {
-                final coinDetails = state.coinDetails;
-                return CoinInfoColumn(coin: coinDetails, theme: theme);
+                final coin = state.coin;
+                final coinDetails = coin.details;
+                return CoinInfoColumn(
+                    coin: coin, coinDetails: coinDetails, theme: theme);
               }
               return const Center(
                   child: CircularProgressIndicator(
@@ -57,17 +59,18 @@ class CoinInfoColumn extends StatelessWidget {
   const CoinInfoColumn({
     super.key,
     required this.coin,
+    required this.coinDetails,
     required this.theme,
   });
-
-  final CryptoCoinDetails? coin;
+  final CryptoCoin? coin;
+  final CryptoCoinDetails? coinDetails;
   final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Image.network(
-        coin!.imageUrl,
+        coinDetails!.fullImageUrl,
         width: 200,
         height: 200,
       ),
@@ -92,7 +95,7 @@ class CoinInfoColumn extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  '${coin?.priceInUSD.toStringAsFixed(4)} \$',
+                  '${coinDetails?.priceInUSD.toStringAsFixed(4)} \$',
                   style: theme.textTheme.headlineMedium,
                 ),
               ),
@@ -129,7 +132,7 @@ class CoinInfoColumn extends StatelessWidget {
                           style: theme.textTheme.bodyMedium,
                         ),
                         Text(
-                          '${coin!.hight24.toStringAsFixed(4)} \$',
+                          '${coinDetails!.hight24.toStringAsFixed(4)} \$',
                           style: theme.textTheme.bodyMedium,
                         ),
                       ],
@@ -143,7 +146,7 @@ class CoinInfoColumn extends StatelessWidget {
                           style: theme.textTheme.bodyMedium,
                         ),
                         Text(
-                          '${coin!.low24.toStringAsFixed(4)} \$',
+                          '${coinDetails!.low24.toStringAsFixed(4)} \$',
                           style: theme.textTheme.bodyMedium,
                         ),
                       ],
