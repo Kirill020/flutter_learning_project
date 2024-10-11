@@ -59,7 +59,7 @@ void main() async {
         (details) => GetIt.I<Talker>().handle(details.exception, details.stack);
 
     // Run App
-    runApp(const CryptoCurrenciesListApp());
+    runApp(CryptoCurrenciesListApp());
   }, (error, stack) {
     GetIt.I<Talker>().handle(error, stack);
   });
